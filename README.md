@@ -2,7 +2,7 @@
 # java-1
 
 # 테크페어 인증샷
-
+![Image](https://github.com/user-attachments/assets/d4b857ff-a3be-478f-a1fb-8671edbae4f8)
 
 # (11월 6일) 강의 
 
