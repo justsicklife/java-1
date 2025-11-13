@@ -3,6 +3,129 @@
 
 # (11월 13일) 강의
 
+### 프레임 만들기, JFrame 클래스 상속
+- 스윙 프레임
+    - JFrame 클래스를 상속받은 클래스 작성
+    - 프레임의 크기 반드시 지정 : setSize() 호출
+    - 프레임을 화면에 출력하느 코드 반드시 필요 : setVisible(true) 호출
+
+```java
+import javax.swing.JFrame;
+
+public class Ex81MyFrame  extends JFrame{
+
+    public Ex81MyFrame() {
+        setTitle("300x300 스윙 프레임 만들기");
+        setSize(300,300);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+    // Ex81MyFrame frame = new Ex81MyFrame();
+    javax.swing.SwingUtilities.invokeLater(() -> {
+            new Ex81MyFrame();
+        });
+    }
+}
+
+```
+
+### Swing GUI 프로그램 만들기
+- 스윙 GUI 프로그램을 만드는 과정
+    - 스윙 프레임 만들기
+    - main() 메서드 작성
+
+### 컨테이너와 컴포넌트
+- 컨테이너
+    - 다른 컴포넌트를 포함할 수 있는 GUI 컴포넌트 : java.awt.Container를 상속받음
+    - 다른 컨테이너에 포함될 수 있음
+    - AWT 컨테이너 : Panel,Fraem,Applet,Dialog,Window
+    - Swing 컨테이너 : JPanel , JFrame, JApplet, JDialog, JWindow
+- 컴포넌트  
+    - 컨테이너에 포함되어야 화면에 출력될 수있는 GUI 객체
+    - 다른 컴포넌트를 포함할 수 없는 순수 컴포넌트
+    - 모든 GUI 컴포넌트가 상속받는 클래스 : java.awt.Component
+    - 스윙 컴포넌트가 상속받는 클래스 : javax.swing.Jcomponent
+- 최상위 컨테이너
+    - 다른 컨테이너에 포함되지 않고도 화면에 출력되며, 독립적으로 존재 가능한 컨테이너 
+    - 스스로 화면에 자신을 출력하는 컨테이너 : JFrame,JDialog,JApplet
+
+
+### 자바의 GUI
+
+[ Swing 패키지 ]
+- AWT 기술을 기반으로 작성된 자바 라이브러리
+- 모든 AWT 기능 + 추가된 풍부하고 화려한 고급 컴포넌트
+- AWT 컴포넌트를 모두 스윙으로 재작성
+- AWT 컴포넌트 이름 앞에 J 자를 덧붙임
+- 순수 자바 언어로 구현
+- 스윙 컴포넌트는 경량 컴포넌트 
+- 스윙 컴포넌트는 운영체제의 도움을 받지 않고 ,직접 그리기 때문에 운영체제 부담주지 않음
+- 현재 자바의 GUI 표준으로 사용됨
+
+
+### 스트링 활용
+- 스트링 비교,equals()와 compareTo()
+    - ->스트링 비교에 == 연산자 절대 사용 금지
+    - equlas() : 스트링이 같으면 true, 아니면 false 리턴
+```java
+String java = "java";
+if(java.equals("java")) // true
+```
+
+- int compareTo(String anotherString)
+    - 문자열이 같으면 0 리턴
+    - 이 문자열이 anotherString 보다 먼저 나오면 음수 리턴
+    - 이 문자열이 anotherString 보다 나중에 나오면 양수 리턴
+
+```java
+String java = "java";
+String cpp = "C++";
+int res = java.compareTo(cpp);
+if(res == 0) System.out.println("the same");
+else if(res < 0) System.out.println(java + " < " + cpp);
+else System.out.println(java + " > " + cpp);
+```
+
+### 스트링 객체의 주요 특징
+- 스트링 객체는 수정 불가능 
+    - 리터럴 스트링이든 new String()을 생성했든 객체의 문자열 수정 불가능
+    - 스트링 비교 : 두 스트링을 비교할 때 반드시 equals() 를 사용하여야 함
+    - -> equals는 내용을 비교하기 때문
+
+### 스트링  리터럴 과 new String()
+
+- 스트링 리터럴
+    - 자바 가상 기계 내부에서 리터럴 테이블에 저장되고 관리됨
+    - 응용프로그램에서  공유됨
+    - 스트링 리터럴 사례) String s = "Hello";
+
+- new String() 으로 생성된 스트링
+    - 스트링 객체는 힙에 생성
+    - 스트링은 공유되지 않음
+
+
+### String 의 생성과 특징
+- String 클래스는 문자열을 나타냄
+- 스트링 리터럴은 String 객체로 처리됨
+- 스트링 객체의 생성 사례
+```java
+String str1 = "abcd";
+
+char data[] = {'a','b','c','d'};
+String str2 = new String(data);
+Strin gstr3 = new String("abcd"); // str2 와 str3은 모두 "abcd" 스트링
+```
+
+### 박싱과 언박싱
+- 박싱 : 기본 타입의 값을 Wrapper 객체로 변환하는 것.
+- 언박싱 : Wrapper 객체에 들어 있는 기본 타입의 값을 빼내는 것, 박싱의 반대
+
+```java
+Integer ten = 10; // 자동 박싱
+int n = ten; // 자동 언박싱
+```
+
 ### Wrapper 객체 생성
 - 기본 타입의 값으로 Wrapper 객체 생성
 ```java
