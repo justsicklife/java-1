@@ -1,6 +1,64 @@
 # 정하형 (202530128)
 # java-1
 
+# (11월 13일) 강의
+
+### Wrapper 객체 생성
+- 기본 타입의 값으로 Wrapper 객체 생성
+```java
+Integer i = Integer.valueOf(10);
+Character c = Character.valueOf('C');
+Double f = Double.valueOf(3.14);
+Boolean b = Boolean.valueOf(true);
+```
+
+- 문자열로 Wrapper 객체 생성
+```java
+Integer i = Integer.valueOf("10");
+Double d = Double.valueOf("3.14");
+Boolean b = Boolean.valueOf("false");
+```
+
+- Float 객체는 double 타입의 값으로 생성가능
+
+### wrapper 활용
+
+### Wrapper 클래스
+- Wrapper 클래스 : 자바의 기본 타입을 클래스화 한 8개 클래스 통칭
+- 용도 : 객체만 사용할 수 있는 컬렉션 등에 기본 타입의 값을 사용하기 위해 Wrapper 객체로 만들어 사용
+
+### 객체 비교 == 와 equals() 메서드
+- == 연산자 : 객체 레퍼런스 비교
+
+```java
+public class Ex63EqualsEx {
+
+    public static void main(String[] args) {
+        Point3 a = new Point3(2,3);
+        Point3 b = new Point3(2,3);
+        Point3 c = new Point3(3,4);
+        if(a == b) {
+            System.out.println("a==b");
+        } 
+
+        if(a.equals(b)) {
+            System.out.println("a is equal to b");
+        }
+
+        if(a.equals(c)) {
+            System.out.println("a is eqaul to c");
+        }
+    }
+}
+
+```
+
+- boolean equals(Object obj)
+    - 두객체의 내용물 비교
+    - 객체의 내용물을 비교하기 위해 클래스의 멤버로 작성
+
+
+
 # 테크페어 인증샷
 ![Image](https://github.com/user-attachments/assets/d4b857ff-a3be-478f-a1fb-8671edbae4f8)
 
