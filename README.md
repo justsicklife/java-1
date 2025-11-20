@@ -1,6 +1,255 @@
 # 정하형 (202530128)
 # java-1
 
+# (11월 20일) 강의
+
+
+
+### 컴포넌트의 절대 위치와 크기 설정
+- 배치 관리자가 없는 컨테이너에 컴포넌트를 삽입할때
+    - 프로그램에서 컴포넌트의 절대 크기와 위치설정
+    - 컴포넌트들이 서로 겹치게 할수 없음
+
+- 컴포넌트의 크기와 위치 설정 메서드
+    - vodi setSize(int width, int height) // 컴포넌트 크기 설정
+    - void setLocation(int x,int y) // 컴포넌트 위치 설정
+    - void setBounds(int x,int y , int width, int height) // 위치와 크기 동시설정
+- 예) 버튼을 100x 40 크기로 하고 , JPanel 의 (50,50) 위치에 배치
+```java
+JPanel p = new  JPanel();
+p.setLayout(null);
+JButton clickButton = new JButton("Click");
+clickButton.setSize(100,40);
+clickButton.setLocations()
+```
+
+### 배치 관리자 없는 컨테이너
+- 배치관리자가 없는 컨테이너가 필요한 경우
+- 응용 프로그램에서 직접 컴포넌트의 크기와 위치를 결정하고자 하는 경우 
+    - 컴포넌트의 크기나 위치를 개발자 임의로 결정하고자 하는 경우
+    - 게임 프로그램과 같이 시간이나 마우스/키보드
+
+```java
+import java.awt.Container;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+public class Ex85GridLayoutEx extends JFrame {
+
+    Ex85GridLayoutEx() {
+        super("GridLayout 예제");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        Container contentPane = getContentPane();
+
+        // contentPane.setLayout(new GridLayout(1,10));
+
+        contentPane.setLayout(null);
+
+        for(int i  = 0 ; i < 10 ; i++) {
+            String text =Integer.toString(i);
+            JButton button = new JButton(text);
+            contentPane.add(button);
+        }
+        
+        setSize(300,150); // 프레임 크기 300x150 설정
+        setVisible(true); // 화면에 프레임 출력
+    }
+
+    public static void main(String[] args) {
+        new Ex85GridLayoutEx();
+    }
+}
+
+```
+
+### 그리드 레이아웃
+
+```java
+import java.awt.Container;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+public class Ex85GridLayoutEx extends JFrame {
+
+    Ex85GridLayoutEx() {
+        super("GridLayout 예제");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        Container contentPane = getContentPane();
+
+        contentPane.setLayout(new GridLayout(1,10));
+
+        for(int i  = 0 ; i < 10 ; i++) {
+            String text =Integer.toString(i);
+            JButton button = new JButton(text);
+            contentPane.add(button);
+        }
+        
+        setSize(300,150); // 프레임 크기 300x150 설정
+        setVisible(true); // 화면에 프레임 출력
+    }
+
+    public static void main(String[] args) {
+        new Ex85GridLayoutEx();
+    }
+}
+
+```
+
+### GridLayout 배치 관리자
+- 배치 방법
+    - 컨테이너 공간을 동일한 사각형 격로 분할하고 각 셀에 컴포넌트 하나씩배치
+
+### borderLayout
+
+```java
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import java.awt.*;
+
+public class Ex82ContentPaneEx  extends JFrame{
+    Ex82ContentPaneEx() {
+        setTitle("ContentPane 과 JFrame 예제"); // 프레임의 타이틀 달기
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        Container contentPane = getContentPane(); // 컨텐트 팬 알아내기
+        contentPane.setBackground(Color.ORANGE); // 오렌지색 배경 설정
+        contentPane.setLayout(new BorderLayout(10,20)); // 컨텐트팬에 FlowLayout
+                                                    //배치 관리자 달기
+
+        contentPane.add(new JButton("OK"),BorderLayout.CENTER); // OK 버튼 달기
+        contentPane.add(new JButton("Cancel"),BorderLayout.EAST); // Cancel 버튼 달기
+        contentPane.add(new JButton("Ignore"),BorderLayout.SOUTH); // Ignore 버튼 달기
+        contentPane.add(new JButton("OK"),BorderLayout.WEST);
+        contentPane.add(new JButton("OK"),BorderLayout.NORTH);
+
+        setSize(300,150); // 프레임 크기 300x150 설정
+        setVisible(true); // 화면에 프레임 출력
+    }
+
+    public static void main(String[] args) {
+        new Ex82ContentPaneEx();
+    }
+}
+```
+
+### 컨테이너에 새로운 배치 관리자 설정
+- 컨테이너에 새로운 배치관리자 설정
+    - setLayout(LayoutManager lm) 메서드 호출 : lm 을 새로운 배치 관리자로 설정
+
+### 사례
+- Jpanel 컨테이너에 BorderLayout 배치관리자를 설정하는 예
+```java
+JPanel p = new JPanel();
+p.setLayout(new BorderLayout()); // JPanel 에 BorderLayout 설정
+```
+- 컨텐트팬의 배치관리자를 FlowLayout 배치 관리자로 설정
+```java
+Container c = frame.getConentPane() // 프레임의 컨텐트 팬 알아내기
+c.setLayout(new FlowLayout()); // 컨텐트팬에 FlowLayout 설정
+```
+- 오류
+```java
+c.setLayout(FlowLayout);
+```
+
+### 배치 관리자 대표 유형 4가지
+- FlowLayout 배치관리자
+    - 왼쪽에서 오른쪽으로 배치
+    - 공간이 없으면 아래로
+- BorderLayout 배치관리자
+    - 컨테이너 공간을 동 서 남 북 중앙의 5개 영역으로 나눔
+    - 지정한 영역에서 컴포넌트 배치
+- GridLayout 배치 관리자
+    - 설정한 동일한 크기의 2차원 격자로 나눔
+    - 좌에서 우로, 다시 위에서 아래로 배치
+- CardLayout 
+    - 카드를 쌓아 놓은 듯이 컴포넌트를 포개어 배치
+
+### swing 응용프로그램 종료
+응용프로그램 내에서 스스로 종료하는 방법
+- 언제 어디서나 무조건 종료
+
+- 프레임의 오른쪽 상단의 종료버튼이 클릭되면 어떤 일이 일어나는가?
+- 프레임이 보이지 않게 되지만 응용프로그램이 종료한 것 아님
+- setVisible(true) 를 호출하면 보이게 되고 이전 처럼 작동함
+
+### 컨테이너 배치, 배치관리자 개념
+- 컨테이너의 배치관리자
+    - 컨테이너마다 하나의 배치 관리자가 존재
+    - 컨테이너에 부착되는 컴포넌트의 위치와 크기 결정
+    - 컨테이너의 크기가 변경되면, 컴포넌트의 위치와 크기 재결정
+
+
+### 1.5 이후
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class Ex82ContentPaneEx  extends JFrame{
+    Ex82ContentPaneEx() {
+        setTitle("ContentPane 과 JFrame 예제"); // 프레임의 타이틀 달기
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+         // 컨텐트 팬 알아내기
+        getContentPane().setBackground(Color.ORANGE); // 오렌지색 배경 설정
+        getContentPane().setLayout(new FlowLayout()); // 컨텐트팬에 FlowLayout
+                                                    //배치 관리자 달기
+
+        add(new JButton("OK")); // OK 버튼 달기
+        add(new JButton("Cancel")); // Cancel 버튼 달기
+        add(new JButton("Ignore")); // Ignore 버튼 달기
+
+        setSize(300,150); // 프레임 크기 300x150 설정
+        setVisible(true); // 화면에 프레임 출력
+    }
+
+    public static void main(String[] args) {
+        new Ex82ContentPaneEx();
+    }
+}
+
+```
+
+
+### 1.5 이전
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class Ex82ContentPaneEx  extends JFrame{
+    Ex82ContentPaneEx() {
+        setTitle("ContentPane 과 JFrame 예제"); // 프레임의 타이틀 달기
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        Container contentPane = getContentPane(); // 컨텐트 팬 알아내기
+        contentPane.setBackground(Color.ORANGE); // 오렌지색 배경 설정
+        contentPane.setLayout(new FlowLayout()); // 컨텐트팬에 FlowLayout
+                                                    //배치 관리자 달기
+
+        contentPane.add(new JButton("OK")); // OK 버튼 달기
+        contentPane.add(new JButton("Cancel")); // Cancel 버튼 달기
+        contentPane.add(new JButton("Ignore")); // Ignore 버튼 달기
+
+        setSize(300,150); // 프레임 크기 300x150 설정
+        setVisible(true); // 화면에 프레임 출력
+    }
+
+    public static void main(String[] args) {
+        new Ex82ContentPaneEx();
+    }
+}
+
+```
+
+
 # (11월 13일) 강의
 
 ### 프레임 만들기, JFrame 클래스 상속
