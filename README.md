@@ -1,9 +1,106 @@
 # 정하형 (202530128)
 # java-1
 
+# (11월 27일) 마지막 강의
+
+### 이벤트 리스너 작성 과정 사례
+- 이벤트와 이벤트 리스너 삭제
+    - 버튼 클릭을 처리하고자 하는 경우
+        - 이벤트 : Action 이벤트, 이벤트 리스너 : ActionListener
+- 이벤트 리스너 클래스 작성 : ActionListener 인터페이스 구현
+```java
+class MyActionListener Implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+        JButton b = (JButton)e.getSource();
+        if(b.getText().equals("Action")) {
+            b.setText("액션");
+        } 
+        else {
+            b.setText("Action");
+        }
+    }
+}
+```
+- 이벤트 리스너 등록
+    - 이벤트를 받아 처리하고자 하는 컴포넌트에 이벤트 리스너 등록
+        - component.addXXListner(listener)
+            - xxx : 이벤트 명, listener : 이벤트 리스너 객체
+```java
+MyActionListener listener = new MyActionListener();
+btn.addActionListener(listener)
+```
+
+### 이벤트 리스너 작성 방법
+3가지 방법
+- 독립 클래스로 작성
+- 내부 클래스
+- 익명 클래스
+
+### 익명 클래스로 이벤트 리스너 작성 
+- 익명 클래스 : 이름 없는 클래스
+    - 클래스 선언 + 인스턴스 생성 을 한번에 달성
+
+- 간단한 리스너의 경우 익명 클래스 사용 추천
+- ActionListner를 구현하는 익명의 이벤트 작성
+
+### 어뎁터 클래스
+- 이벤트 리스너 구현에 따른 부담
+    - 리스너의 추상 메서드를 모두 구현해야 하는 부담
+    - 마우스가 눌러지는 경우(mousePressed()) 만 처리하고자 하는 경우에도 나머지 4개의 
+
+### 키 이벤트와 포커스
+- 키입력시 다음 세 경우 각가 key 이벤트 발생
+    - 키를 누른 순간
+    - 누른 키를 떼는 순간
+    - 누른 키를 때는 순간
+- 키 이벤트를 받을 수 있는 조건
+    - 모든 컴ㅍ넌트 
+    - 현재 포커스를 가진 컴포넌트가 키 이벤트 독점
+- 포커스
+    - 컴포넌트나 응용프로그램이 키 이벤트를 독점하는 권한
+    - 컴포넌트에 포커스 설정 방법 : 다음 2 라인 코드 필요
+```java
+component.setFocusable(true);
+component.requestFocus();
+```
+
+- 자바 플랫폼마다 실행 환경의 초기화가 서로 다를 수 있기 때문에 다음 코드가 필요함
+
+### KeyListener
+- 응용프로그램 에서 KeyListener 를 상속받아 키 리스너 구현
+- KeyListener의 3개 메서드 
+
+- 컴포넌트에 키 이벤트 리스너 달기
+
+### 유니코드
+- 유니코드 키 특징
+    - 국제 산업 표준
+    - 전 세계의 문자를 컴퓨터에서 일관되게 표현하기 위한 코드 체계
+    - 문자들에 대해서만 키 코드 값 정의
+- 문자가 아닌 키 경우에는 표준화된 키 코드 값 없음
+- 유니코드 키가 입력되는 경우
+    - KeyPressed(), KeyTyped(), KeyReleased() 가 순서대로 호출
+- 유니코드 키가 아닌 경우
+    - keyPressed(), keyReleased() 만 호출됨
+
+### 가상 키와 입력된 키 판별
+- keyEvent 객체
+    - 입력된 키 정보를 가진 이벤트 객체
+    - keyEvent 객체의 메서드로 입력 된 키 판별
+- KeyEvent 객체의 메서드로 입력된 키 판별
+    - char keyEvent.getKeyChar()
+    - 키의 유니코드 문자 값 리턴
+    
+### 마우스 리스너 달기와 MouseEvent 객체 활용
+- 마우스 리스너 달기
+    - 마우스 리스너는 컴포넌트에 다음과 같이 등록
+    - 컴포넌트가 마우스 무브 나 마우스 트래킹을 함께 처리하고자 하면,  MouseMotion 리스너 따로 등록
+- MouseEvent 객체 활용 
+    - 마우스 포인터의 위치, 컴포넌트 내 상대 위치 : int getX(), int getY()
+- 마우스 클릭횟수 : int getClickCount()
+
+
 # (11월 20일) 강의
-
-
 
 ### 컴포넌트의 절대 위치와 크기 설정
 - 배치 관리자가 없는 컨테이너에 컴포넌트를 삽입할때
